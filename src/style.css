@@ -1,3 +1,162 @@
-h1 {
-  color: blue;
+body {
+  padding: 60px 60px 60px 60px;
+  font-family: "Montserrat", sans-serif;
+}
+.container {
+  padding: 10px 80px 10px 10px;
+  background-image: linear-gradient(60deg, #96deda 0%, #50c9c3 0%);
+  background-image: linear-gradient(-20deg, #65d6c9 0%, #65d6c9 0%);
+  font-family: "Montserrat", sans-serif;
+}
+
+/***Search Bar and Submit Button**/
+.search-bar {
+  border-radius: 15px;
+  padding: 40px;
+  position: inline;
+}
+
+.search-button {
+  background: #536dfe;
+}
+
+.fas.fa-search-location {
+  font-size: 30px;
+  margin-bottom: 10px;
+  padding-left: 30px;
+  color: #536dfe;
+}
+
+/***City Date and Time Card**/
+
+#cityDateTime {
+  border: none;
+  padding-left: 40px;
+}
+
+/***City Date and Time Contents**/
+
+#cityDateTime {
+  background-image: linear-gradient(-20deg, #65d6c9 0%, #65d6c9 100%);
+  margin-left: 20px;
+  margin-top: 0px;
+  border-radius: 30px;
+  border-color: none;
+}
+#city {
+  border-radius: 10px 20px 15px 20px;
+  margin-top: 10px;
+  text-align: left;
+  position: inline;
+  padding: 10px;
+  margin-left: 10px;
+  font-size: 70px;
+  font-weight: normal;
+}
+#dateTime {
+  padding: 0px;
+}
+
+#currentDate {
+  text-align: left;
+  position: inline;
+  padding: 0px;
+  margin-left: 25px;
+  font-size: 25px;
+  color: #596275;
+}
+
+#time {
+  text-align: left;
+  position: inline;
+  padding: 0px;
+  margin-left: 25px;
+  font-size: 25px;
+  color: #596275;
+}
+
+/***Current Weather Summary**/
+
+#currentWeathersummary {
+  margin-top: 30px;
+  margin-left: 100px;
+  margin-bottom: 75px;
+}
+
+#currentWeatherImg {
+  size: 10px;
+}
+
+#currentDegrees {
+  font-size: 100px;
+  font-weight: lighter;
+}
+
+#currentWeatherDetail {
+  font-size: 30px;
+  text-transform: capitalize;
+}
+
+.f-to-c-toggleButton {
+  padding-top: 10px;
+}
+
+/***Detailed Weather Specs Section with 6 Details**/
+.current-weather-specs {
+  margin-left: 75px;
+}
+
+#specsRow1 {
+  margin-top: 20px;
+}
+
+.detailed-status-row1 {
+  font-size: 30px;
+  padding-left: 40px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.detailed-status-row2 {
+  font-size: 30px;
+  padding-left: 40px;
+  padding-bottom: 30px;
+}
+
+/***5 Day Outlook**/
+
+.weather-advisory-section-header {
+  text-align: center;
+  padding: 30px 0px 20px;
+  font-size: 35px;
+}
+
+.day-cards-group {
+  padding-left: 60px;
+}
+
+.daily-weather-outlook-item {
+  font-size: 48px;
+  text-align: center;
+}
+
+.temperature-fiveDay {
+  text-align: center;
+  padding-top: 10px;
+  font-weight: bold;
+}
+
+.single-day-card {
+  background-image: linear-gradient(-20deg, #65d6c9 0%, #65d6c9 100%);
+  border: 1px solid #cbe2f3;
+}
+
+.single-day-card:hover {
+  cursor: pointer;
+  box-shadow: 5px 2px 2px #cbe2f3;
+}
+
+.signature {
+  text-align: center;
+  padding-top: 80px;
 }
