@@ -1,42 +1,46 @@
-let apiKey = "c788fbd12920cbf73a67468fe8b0facb";
+//Global Variable - TEMP
+var apiKey = "10a81d6318c2a72a6e26b0c6227d2fa9";
 
 //Display the current date and time using JavaScript
-function formatDate(now) {
-  let currentDate = document.querySelector("#currentDate");
-  let currentTime = document.querySelector("#time");
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
 
-  let date = now.getDate();
-  console.log(date);
-  let hours = now.getHours().toString().padStart(2, "0");
-  let minutes = now.getMinutes().toString().padStart(2, "0");
-  let year = now.getFullYear();
-
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  let day = days[now.getDay()];
-
-  let months = [
-    "Jan",
-    "Feb",
-    "March",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
-  let month = months[now.getMonth()];
-
-  currentDate.innerHTML = `${day} ${month} ${date}, ${year}`;
-  currentTime.innerHTML = `${hours}:${minutes}`;
+  let day = days[date.getDay()]; // pulling index value from array for the relevant day based on API response, and assigns the name of the day (string)
+  return `${day} ${formatHours(timestamp)}`; //the ${formatHours(timestamp)} is going to call the formatHours function, below, and return `${hours}:${minutes}`
 }
 
-let now = new Date();
+function formatHours(timestamp) {
+  //function to format the "dt" raw timestamp returned with the Forecast API response, pulled and formated timestamp from API response data (UTC)
+  let date = new Date(timestamp);
+  let hours = date.getHours(); // JS syntax, getHours
+  if (hours < 10) {
+    //two digits, if hours is <10, then `0${hours}`
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    //two digits, if minutes is <10, then `0${minutes}`
+    minutes = `0${minutes}`;
+  }
+  return `${hours}:${minutes}`;
+}
 
-formatDate(now);
+//format weekday function for 5-Day Outlook
+function formatWeekDay(timestamp) {
+  let dateTime = new Date(timestamp);
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
+  let currentDay = days[dateTime.getDay()];
+  return `${currentDay}`;
+}
 
 //** C to F Toggle Button Conversions, script is pulling the user's selected city, once it is loaded to the HTML form, e.g., id = "#city"  **
 let cityName = document.querySelector("#city");
@@ -120,7 +124,61 @@ function getCurrentPosition() {
 let currentLocation = document.querySelector("#current-btn");
 currentLocation.addEventListener("click", getCurrentPosition);
 
+//**Forecast Functionality Description - You can search/view weather forecast for 5 days with data every 3 hours by city name.**
+
 //Every 3 Hour Forecast
+function displayForecast(response) {
+  //created function to display extended forecast (e.g., forecast for next 6 3-hour chunks of time) below. Function displays forecast data every 3 hours/on the hour six times, API documentation: https://openweathermap.org/forecast5
+  let forecastElement = document.querySelector("#forecast"); //pulling this id from HTML
+  forecastElement.innerHTML = null; //updated to prevent bug; when user searches for another city,overwrites each value in forecast with whatever the API returns
+  let forecast = null; //updated forecast variable for "for" loop to run without bug
+
+  for (let index = 0; index < 6; index++) {
+    //created "for" loop below
+    forecast = response.data.list[index]; //Using a "for" loop, I injected this HTML 6 times but each time I am overwriting each value by whatever the API is giving me, and I am doing this 6 times.
+    forecastElement.innerHTML += `
+    <div class="col-2">
+              <h3>
+                ${formatHours(forecast.dt * 1000)}
+              </h3>
+              <img src="http://openweathermap.org/img/wn/${
+                forecast.weather[0].icon
+              }@2x.png" alt="">
+              <div class="weather-forecast-temperature">
+                  <strong>${Math.round(
+                    forecast.main.temp_max
+                  )}°</strong> ${Math.round(forecast.main.temp_min)}°
+                </div>
+    </div>
+  `;
+  }
+}
+
+//Five Day Forecast
+function dailyForecast(response) {
+  let dayForecastElement = document.querySelector("#dayForecast");
+  dayForecastElement.innerHTML = null;
+  let dayForecast = null;
+
+  for (let index = 1; index < 6; index++) {
+    dayForecast = response.data.daily[index];
+    // console.log(response.data.daily);
+
+    dayMax = `${Math.round(dayForecast.temp.max)}`;
+    dayMin = `${Math.round(dayForecast.temp.min)}`;
+
+    dayForecastElement.innerHTML += `
+    
+    <div class="col">
+  <h3>${formatWeekDay(dayForecast.dt * 1000)}</h3>
+  <img src="http://openweathermap.org/img/wn/${
+    dayForecast.weather[0].icon
+  }@2x.png" />
+            <p class="forecast-temperature"><strong>${dayMax}°C</strong> ${dayMin}°C</p>
+            </div>
+    `;
+  }
+}
 
 //**New Search City Functions**
 
@@ -128,12 +186,33 @@ function getApiDataImperial(inputCity) {
   let apiKey = "10a81d6318c2a72a6e26b0c6227d2fa9";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(showTemperature);
+
+  //API call to pull data for hourly forecast feature - for Imperial
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&appid=${apiKey}&units=imperial`; //second API call made to OpenWeather, this part of the search function is going to make an AJAX call to get the 5-day forecast
+  console.log(axios.get(apiUrl));
+  axios.get(apiUrl).then(displayForecast);
+
+  //API call data for 5 Day Outlook forecast feature - for Imperial
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&appid=${apiKey}&units=imperial`; //second API call made to OpenWeather, this part of the search function is going to make an AJAX call to get the 5-day forecast
+  console.log(axios.get(apiUrl));
+  axios.get(apiUrl).then(dailyForecast);
 }
 
 function getApiDataMetric(inputCity) {
+  //this function is called upon page load, and upon search of city name
   let apiKey = "10a81d6318c2a72a6e26b0c6227d2fa9";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showTemperature);
+
+  //API call to pull data for hourly forecast feature - for Metric
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&appid=${apiKey}&units=metric`; //second API call made to OpenWeather, this part of the search function is going to make an AJAX call to get the 5-day forecast
+  console.log(axios.get(apiUrl));
+  axios.get(apiUrl).then(displayForecast);
+
+  //API call data for 5 Day Outlook forecast feature - for Metric
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&appid=${apiKey}&units=metric`; //second API call made to OpenWeather, this part of the search function is going to make an AJAX call to get the 5-day forecast
+  console.log(axios.get(apiUrl));
+  axios.get(apiUrl).then(dailyForecast);
 }
 
 function search(event) {
