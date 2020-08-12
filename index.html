@@ -84,7 +84,7 @@
             class="btn-group btn-group-toggle f-to-c-toggleButton"
             data-toggle="buttons"
           >
-            <label class="btn btn-secondary active">
+            <label class="btn btn-secondary active weather-temperature">
               <input
                 type="radio"
                 name="options"
@@ -94,7 +94,7 @@
               />
               °C
             </label>
-            <label class="btn btn-secondary">
+            <label class="btn btn-secondary weather-temperature">
               <input
                 type="radio"
                 name="options"
@@ -164,9 +164,18 @@
 
       <!--start 5 Day Outlook-->
       <h3 class="weather-advisory-section-header">FIVE DAY OUTLOOK</h3>
+
+      <div class="row weather-forecast" id="forecast"></div>
+
+      <br />
+      <hr />
+      <br />
+      <div class="row day-forecast" id="dayForecast"></div>
+
+      <!--start Commented out-->
       <!--Cards that will highlight when hovered over-->
 
-      <div class="row day-cards-group">
+      <!--<div class="row day-cards-group" id="forecast">
         <div class="col">
           <div class="card h-100 single-day-card">
             <div class="card-body">
@@ -230,7 +239,8 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
+      <!--end Commented out-->
       <!--end 5 Day Outlook-->
       <div>
         <p class="signature">

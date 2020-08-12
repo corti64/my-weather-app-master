@@ -101,7 +101,7 @@ body {
   padding-top: 10px;
 }
 
-/***Detailed Weather Specs Section with 6 Details**/
+/** Detailed Weather Specs Section with 6 Details **/
 .current-weather-specs {
   margin-left: 75px;
 }
@@ -123,7 +123,7 @@ body {
   padding-bottom: 30px;
 }
 
-/***5 Day Outlook**/
+/** 5 Day Outlook MAY NEED TO DELETE EXCEPT weather-advisory-section-header**/
 
 .weather-advisory-section-header {
   text-align: center;
@@ -159,4 +159,63 @@ body {
 .signature {
   text-align: center;
   padding-top: 80px;
+}
+
+/** Format °C | °F conversion feature  **/
+
+.weather-temperature .active {
+  color: rgb(33, 33, 33);
+  cursor: default; /** changes mouse so it doesnt look like you can click link for active unit, which is Celsius by default **/
+}
+
+.weather-temperature .active:hover {
+  text-decoration: none; /** no underline when user hovers over the currently active temp mertic, as underline is the default text decoration for a link **/
+}
+
+/** css for extended forecast section **/
+.weather-advisory-section-header {
+  /** DUPLICATED FOR NOW, REMOVE WITH ABOVE PRIOR CODE **/
+  text-align: center;
+  padding: 30px 0px 20px;
+  font-size: 35px;
+}
+
+.weather-forecast {
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.weather-forecast h3 {
+  color: rgb(186, 186, 186);
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  height: 15px;
+  line-height: 15px;
+  padding-top: 7px;
+}
+
+.weather-forecast img {
+  display: block;
+  margin: 0 auto;
+  height: 48px;
+  width: 48px;
+}
+
+.weather-forecast-temperature {
+  text-align: center;
+  color: rgb(135, 135, 135);
+  font-size: 13px;
+  font-weight: 400;
+  height: auto;
+  line-height: 15px;
+  white-space: nowrap;
+}
+
+/** Mobile-Friendly **/
+
+@media only screen and (max-width: 786px) {
+  .weather-app {
+    float: left;
+  }
 }

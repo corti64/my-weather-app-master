@@ -1,4 +1,6 @@
-//Feature #1: display the current date and time using JavaScript
+let apiKey = "c788fbd12920cbf73a67468fe8b0facb";
+
+//Display the current date and time using JavaScript
 function formatDate(now) {
   let currentDate = document.querySelector("#currentDate");
   let currentTime = document.querySelector("#time");
@@ -49,7 +51,7 @@ celsiusLink.addEventListener("click", function () {
   getApiDataMetric(cityName.innerHTML);
 });
 
-//Weather API
+//Detailed Current Weather Information
 
 function showTemperature(response) {
   console.log(response);
@@ -117,6 +119,8 @@ function getCurrentPosition() {
 
 let currentLocation = document.querySelector("#current-btn");
 currentLocation.addEventListener("click", getCurrentPosition);
+
+//Every 3 Hour Forecast
 
 //**New Search City Functions**
 
