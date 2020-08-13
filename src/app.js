@@ -1,4 +1,4 @@
-//Global Variable - TEMP
+//Global variable
 var apiKey = "10a81d6318c2a72a6e26b0c6227d2fa9";
 
 //Display the current date and time using JavaScript
@@ -14,7 +14,7 @@ function formatDate(timestamp) {
     "Friday",
     "Saturday",
   ];
-  let day = days[date.getDay()]; // pulling index value from array for the relevant day based on API response, and assigns the name of the day (string)
+  let day = days[date.getDay()]; //pulling index value from array for the relevant day based on API response, and assigns the name of the day (string)
   return `${day} ${formatHours(timestamp)}`; //the ${formatHours(timestamp)} is going to call the formatHours function, below, and return `${hours}:${minutes}`
 }
 
@@ -192,7 +192,7 @@ function getApiDataImperial(inputCity) {
   console.log(axios.get(apiUrl));
   axios.get(apiUrl).then(displayForecast);
 
-  //API call data for 5 Day Outlook forecast feature - for Imperial
+  // DELETE ... API call data for 5 Day Outlook forecast feature - for Imperial
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&appid=${apiKey}&units=imperial`; //second API call made to OpenWeather, this part of the search function is going to make an AJAX call to get the 5-day forecast
   console.log(axios.get(apiUrl));
   axios.get(apiUrl).then(dailyForecast);
