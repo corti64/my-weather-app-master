@@ -124,8 +124,8 @@ function retrievePosition(position) {
   axios.get(apiUrl).then(showTemperature);
 }
 
-function getCurrentPosition() {
-  Event.preventDefault();
+function getCurrentPosition(event) {
+  event.preventDefault();
   navigator.geolocation.getCurrentPosition(retrievePosition);
 }
 
@@ -155,7 +155,7 @@ function displayForecast(response) {
               <div class="weather-forecast-temperature">
                   <strong>${Math.round(
                     forecast.main.temp_max
-                  )}°</strong> ${Math.round(forecast.main.temp_min)}°
+                  )}°</strong> | ${Math.round(forecast.main.temp_min)}°
                 </div>
     </div>
   `;
@@ -182,7 +182,7 @@ function dailyForecast(response) {
   <img src="http://openweathermap.org/img/wn/${
     dayForecast.weather[0].icon
   }@2x.png" />
-            <p class="forecast-temperature"><strong>${dayMax}°C</strong> ${dayMin}°C</p>
+            <p class="forecast-temperature"><strong>${dayMax}°C</strong> | ${dayMin}°C</p>
             </div>
     `;
   }
@@ -206,6 +206,7 @@ function getApiDataImperial(inputCity) {
 function getApiDataMetric(inputCity) {
   let apiKey = "10a81d6318c2a72a6e26b0c6227d2fa9";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${apiKey}&units=metric`;
+  //quick reference to apiURL data https://api.openweathermap.org/data/2.5/weather?q=London&appid=10a81d6318c2a72a6e26b0c6227d2fa9&units=imperial
   axios.get(apiUrl).then(showTemperature);
 
   //TB Refactored, API call to pull data for hourly forecast feature - for Metric

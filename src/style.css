@@ -127,6 +127,7 @@ body {
 /** Format °C | °F conversion feature  **/
 
 .weather-temperature .active {
+  /** TB Refactored, if not then REMOVE CSS  **/
   color: rgb(33, 33, 33);
   cursor: default; /** changes mouse so it doesnt look like you can click link for active unit, which is Celsius by default **/
 }

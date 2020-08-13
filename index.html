@@ -81,28 +81,30 @@
             Mostly Sunny
           </p>
           <div
-            class="btn-group btn-group-toggle f-to-c-toggleButton"
+            class="btn-group btn-group-toggle f-to-c-toggleButton weather-temperature"
             data-toggle="buttons"
           >
-            <label class="btn btn-secondary active weather-temperature">
-              <input
-                type="radio"
-                name="options"
-                id="celsius-link"
-                autocomplete="off"
-                checked
-              />
-              °C
-            </label>
-            <label class="btn btn-secondary weather-temperature">
-              <input
-                type="radio"
-                name="options"
-                id="fahrenheit-link"
-                autocomplete="off"
-              />
-              °F
-            </label>
+            <span class="units">
+              <label class="btn btn-secondary active">
+                <input
+                  type="radio"
+                  name="options"
+                  id="celsius-link"
+                  autocomplete="off"
+                  checked
+                />
+                °C
+              </label>
+              <label class="btn btn-secondary">
+                <input
+                  type="radio"
+                  name="options"
+                  id="fahrenheit-link"
+                  autocomplete="off"
+                />
+                °F
+              </label>
+            </span>
           </div>
         </div>
       </div>
