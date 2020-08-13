@@ -102,6 +102,14 @@ function showTemperature(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+
+  //Daily Forecast
+
+  let lat = response.data.coord.lat;
+  let lon = response.data.coord.lon;
+  let apiurl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&
+  exclude=current,minutely,hourly&appid=${apiKey}&units=metric`;
+  axios.get(apiurl).then(dailyForecast);
 }
 
 //GeoLocation
@@ -117,14 +125,14 @@ function retrievePosition(position) {
 }
 
 function getCurrentPosition() {
-  event.preventDefault();
+  Event.preventDefault();
   navigator.geolocation.getCurrentPosition(retrievePosition);
 }
 
 let currentLocation = document.querySelector("#current-btn");
 currentLocation.addEventListener("click", getCurrentPosition);
 
-//**Forecast Functionality Description - You can search/view weather forecast for 5 days with data every 3 hours by city name.**
+//**Forecast Functionality (Description) - You can search/view weather forecast for 5 days with data every 3 hours by city name.**
 
 //Every 3 Hour Forecast
 function displayForecast(response) {
@@ -180,39 +188,30 @@ function dailyForecast(response) {
   }
 }
 
-//**New Search City Functions**
+//**Search City Functions**
 
+//Search function invoked when selecting | °F toggle - for Imperial
 function getApiDataImperial(inputCity) {
   let apiKey = "10a81d6318c2a72a6e26b0c6227d2fa9";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(showTemperature);
 
-  //API call to pull data for hourly forecast feature - for Imperial
+  //TB Refactored, API call to pull data for hourly forecast feature ("Today's Forecast") - for Imperial
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&appid=${apiKey}&units=imperial`; //second API call made to OpenWeather, this part of the search function is going to make an AJAX call to get the 5-day forecast
   console.log(axios.get(apiUrl));
   axios.get(apiUrl).then(displayForecast);
-
-  // DELETE ... API call data for 5 Day Outlook forecast feature - for Imperial
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&appid=${apiKey}&units=imperial`; //second API call made to OpenWeather, this part of the search function is going to make an AJAX call to get the 5-day forecast
-  console.log(axios.get(apiUrl));
-  axios.get(apiUrl).then(dailyForecast);
 }
 
+//Search function invoked *immediately* upon page load, upon execution of search function (search of city name), and upon selection of | °C toggle - DEFAULT is Metric
 function getApiDataMetric(inputCity) {
-  //this function is called upon page load, and upon search of city name
   let apiKey = "10a81d6318c2a72a6e26b0c6227d2fa9";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showTemperature);
 
-  //API call to pull data for hourly forecast feature - for Metric
+  //TB Refactored, API call to pull data for hourly forecast feature - for Metric
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&appid=${apiKey}&units=metric`; //second API call made to OpenWeather, this part of the search function is going to make an AJAX call to get the 5-day forecast
   console.log(axios.get(apiUrl));
   axios.get(apiUrl).then(displayForecast);
-
-  //API call data for 5 Day Outlook forecast feature - for Metric
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&appid=${apiKey}&units=metric`; //second API call made to OpenWeather, this part of the search function is going to make an AJAX call to get the 5-day forecast
-  console.log(axios.get(apiUrl));
-  axios.get(apiUrl).then(dailyForecast);
 }
 
 function search(event) {
@@ -225,7 +224,6 @@ let form = document.querySelector("#search-form");
 form.addEventListener("submit", search);
 
 //Convert UTC time from API response to 24hr clock
-
 function UTCtoTwentyFourHours(timeZone, time) {
   let newTime = (time + timeZone) * 1000;
   let convertedDate = new Date(newTime);
@@ -235,5 +233,5 @@ function UTCtoTwentyFourHours(timeZone, time) {
   return returnedString;
 }
 
-//Default city upon initial load
+//Default city, searched upon initial load
 getApiDataMetric("Lausanne");

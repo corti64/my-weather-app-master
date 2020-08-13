@@ -9,7 +9,7 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-/***Search Bar and Submit Button**/
+/** Search Bar and Submit Button **/
 .search-bar {
   border-radius: 15px;
   padding: 40px;
@@ -27,14 +27,14 @@ body {
   color: #536dfe;
 }
 
-/***City Date and Time Card**/
+/** City Date and Time Card **/
 
 #cityDateTime {
   border: none;
   padding-left: 40px;
 }
 
-/***City Date and Time Contents**/
+/** City Date and Time Contents **/
 
 #cityDateTime {
   background-image: linear-gradient(-20deg, #65d6c9 0%, #65d6c9 100%);
@@ -75,7 +75,7 @@ body {
   color: #596275;
 }
 
-/***Current Weather Summary**/
+/** Current Weather Summary **/
 
 #currentWeathersummary {
   margin-top: 30px;
@@ -101,7 +101,8 @@ body {
   padding-top: 10px;
 }
 
-/** Detailed Weather Specs Section with 6 Details **/
+/** Detailed Current Weather Specs Section **/
+
 .current-weather-specs {
   margin-left: 75px;
 }
@@ -123,45 +124,6 @@ body {
   padding-bottom: 30px;
 }
 
-/** DELETE ... 5 Day Outlook MAY NEED TO DELETE EXCEPT weather-advisory-section-header**/
-
-.weather-advisory-section-header {
-  text-align: center;
-  padding: 30px 0px 20px;
-  font-size: 35px;
-}
-
-.day-cards-group {
-  padding-left: 60px;
-}
-
-.daily-weather-outlook-item {
-  font-size: 48px;
-  text-align: center;
-}
-
-.temperature-fiveDay {
-  text-align: center;
-  padding-top: 10px;
-  font-weight: bold;
-}
-
-.single-day-card {
-  background-image: linear-gradient(-20deg, #65d6c9 0%, #65d6c9 100%);
-  border: 1px solid #cbe2f3;
-}
-
-.single-day-card:hover {
-  cursor: pointer;
-  box-shadow: 5px 2px 2px #cbe2f3;
-}
-/** STOP DELETING HERE  **/
-
-.signature {
-  text-align: center;
-  padding-top: 80px;
-}
-
 /** Format °C | °F conversion feature  **/
 
 .weather-temperature .active {
@@ -173,9 +135,9 @@ body {
   text-decoration: none; /** no underline when user hovers over the currently active temp mertic, as underline is the default text decoration for a link **/
 }
 
-/** css for extended forecast section **/
+/** Extended Forecast Sections (includes: "Today's Forecast" and "Five Day Outlook") **/
+
 .weather-advisory-section-header {
-  /** DUPLICATED FOR NOW, REMOVE WITH ABOVE PRIOR CODE **/
   text-align: center;
   padding: 30px 0px 20px;
   font-size: 35px;
@@ -189,7 +151,7 @@ body {
 
 .weather-forecast h3 {
   color: #ec6e4b;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 400;
   text-align: center;
   height: 15px;
@@ -200,19 +162,32 @@ body {
 .weather-forecast img {
   display: block;
   margin: 0 auto;
-  height: 65px;
-  width: 65px;
+  height: 80px;
+  width: 80px;
   padding: 7px;
 }
 
 .weather-forecast-temperature {
   text-align: center;
   color: #49484a;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 400;
   height: auto;
   line-height: 15px;
   white-space: nowrap;
+}
+
+.forecast-temperature {
+  padding-left: 50px;
+  color: #49484a;
+  font-size: 20px;
+}
+
+/** Signature Section **/
+
+.signature {
+  text-align: center;
+  padding-top: 80px;
 }
 
 /** Mobile-Friendly **/
