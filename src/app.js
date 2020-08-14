@@ -104,7 +104,6 @@ function showTemperature(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
 
   //Daily Forecast
-
   let lat = response.data.coord.lat;
   let lon = response.data.coord.lon;
   let apiurl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&
@@ -114,10 +113,6 @@ function showTemperature(response) {
 
 //GeoLocation
 function retrievePosition(position) {
-  console.log(position.coords.latitude);
-  console.log(position.coords.longitude);
-  let apiKey = "10a81d6318c2a72a6e26b0c6227d2fa9";
-
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
@@ -170,7 +165,7 @@ function dailyForecast(response) {
 
   for (let index = 1; index < 6; index++) {
     dayForecast = response.data.daily[index];
-    // console.log(response.data.daily);
+    //console.log(response.data.daily);
 
     dayMax = `${Math.round(dayForecast.temp.max)}`;
     dayMin = `${Math.round(dayForecast.temp.min)}`;
@@ -192,7 +187,6 @@ function dailyForecast(response) {
 
 //Search function invoked when selecting | °F toggle - for Imperial
 function getApiDataImperial(inputCity) {
-  let apiKey = "10a81d6318c2a72a6e26b0c6227d2fa9";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(showTemperature);
 
@@ -200,11 +194,18 @@ function getApiDataImperial(inputCity) {
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&appid=${apiKey}&units=imperial`; //second API call made to OpenWeather, this part of the search function is going to make an AJAX call to get the 5-day forecast
   console.log(axios.get(apiUrl));
   axios.get(apiUrl).then(displayForecast);
+
+  /*Daily Forecast
+  let response = axios.get(apiUrl);
+  let lat = response.data.coord.lat;
+  let lon = response.data.coord.lon;
+  let apiurl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&
+  exclude=current,minutely,hourly&appid=${apiKey}&units=imperial`;
+  axios.get(apiurl).then(dailyForecast);*/
 }
 
 //Search function invoked *immediately* upon page load, upon execution of search function (search of city name), and upon selection of | °C toggle - DEFAULT is Metric
 function getApiDataMetric(inputCity) {
-  let apiKey = "10a81d6318c2a72a6e26b0c6227d2fa9";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${apiKey}&units=metric`;
   //quick reference to apiURL data https://api.openweathermap.org/data/2.5/weather?q=London&appid=10a81d6318c2a72a6e26b0c6227d2fa9&units=imperial
   axios.get(apiUrl).then(showTemperature);
@@ -213,6 +214,14 @@ function getApiDataMetric(inputCity) {
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${inputCity}&appid=${apiKey}&units=metric`; //second API call made to OpenWeather, this part of the search function is going to make an AJAX call to get the 5-day forecast
   console.log(axios.get(apiUrl));
   axios.get(apiUrl).then(displayForecast);
+
+  /*Daily Forecast
+  let response = axios.get(apiUrl);
+  let lat = response.data.coord.lat;
+  let lon = response.data.coord.lon;
+  let apiurl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&
+  exclude=current,minutely,hourly&appid=${apiKey}&units=metric`;
+  axios.get(apiurl).then(dailyForecast);*/
 }
 
 function search(event) {
