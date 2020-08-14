@@ -45,12 +45,12 @@ function formatWeekDay(timestamp) {
 //** C to F Toggle Button Conversions, script is pulling the user's selected city, once it is loaded to the HTML form, e.g., id = "#city"  **
 let cityName = document.querySelector("#city");
 
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
+let fahrenheitLink = document.querySelector("#fahrenheitLink");
 fahrenheitLink.addEventListener("click", function () {
   getApiDataImperial(cityName.innerHTML);
 });
 
-let celsiusLink = document.querySelector("#celsius-link");
+let celsiusLink = document.querySelector("#celsiusLink");
 celsiusLink.addEventListener("click", function () {
   getApiDataMetric(cityName.innerHTML);
 });
@@ -208,6 +208,8 @@ function getApiDataImperial(inputCity) {
 function getApiDataMetric(inputCity) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${apiKey}&units=metric`;
   //quick reference to apiURL data https://api.openweathermap.org/data/2.5/weather?q=London&appid=10a81d6318c2a72a6e26b0c6227d2fa9&units=imperial
+  let celsiusLink = document.querySelector("#celsiusLink");
+  celsiusLink.checked = true;
   axios.get(apiUrl).then(showTemperature);
 
   //TB Refactored, API call to pull data for hourly forecast feature - for Metric
