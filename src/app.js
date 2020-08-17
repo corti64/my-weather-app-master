@@ -246,4 +246,4 @@ function UTCtoTwentyFourHours(timeZone, time) {
 }
 
 //Default city, searched upon initial load
-getApiDataMetric("Lausanne");
+getApiDataMetric("New York");
